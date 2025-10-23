@@ -243,24 +243,33 @@ textarea {
   }
 }
 /* ========================================
-   CORREÇÃO PARA IMPRESSÃO DO CAMPO OBJETO
+   CORREÇÃO DEFINITIVA PARA IMPRESSÃO
    ======================================== */
 
 @media print {
-  #objetoTextarea {
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-    resize: none !important;
+  /* Esconde textareas originais */
+  textarea {
+    display: none !important;
+  }
+  
+  /* Mostra divs de substituição */
+  .textarea-print-replacement {
+    display: block !important;
     white-space: pre-wrap !important;
     word-wrap: break-word !important;
-    border: none !important;
-    display: block !important;
-  }
-
-  /* Remove scrollbars de todos os textareas */
-  textarea {
     overflow: visible !important;
-    height: auto !important;
+    page-break-inside: avoid;
+    margin: 0;
+  }
+  
+  /* Remove qualquer scrollbar */
+  * {
+    overflow: visible !important;
+  }
+  
+  /* Garante células visíveis */
+  td, th {
+    overflow: visible !important;
   }
 }
+
