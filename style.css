@@ -242,3 +242,25 @@ textarea {
     border: 1px solid black !important;
   }
 }
+/* ========================================
+   CORREÇÃO PARA IMPRESSÃO DO CAMPO OBJETO
+   ======================================== */
+
+@media print {
+  #objetoTextarea {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    resize: none !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    border: none !important;
+    display: block !important;
+  }
+
+  /* Remove scrollbars de todos os textareas */
+  textarea {
+    overflow: visible !important;
+    height: auto !important;
+  }
+}
