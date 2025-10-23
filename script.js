@@ -163,7 +163,46 @@ function autoResize(textarea) {
 }
 
 function exportarPDF() {
+  // Captura todos os textareas
+  const textareas = document.querySelectorAll('textarea');
+  const backups = [];
+  
+  textareas.forEach((textarea) => {
+    // Salva referência original
+    backups.push({
+      elemento: textarea,
+      display: textarea.style.display
+    });
+    
+    // Cria div de substituição
+    const div = document.createElement('div');
+    div.className = 'textarea-print-replacement';
+    div.textContent = textarea.value;
+    
+    // Copia estilos importantes
+    div.style.fontFamily = window.getComputedStyle(textarea).fontFamily;
+    div.style.fontSize = window.getComputedStyle(textarea).fontSize;
+    div.style.textAlign = window.getComputedStyle(textarea).textAlign;
+    div.style.whiteSpace = 'pre-wrap';
+    div.style.wordWrap = 'break-word';
+    div.style.lineHeight = '1.4';
+    div.style.padding = window.getComputedStyle(textarea).padding;
+    
+    // Substitui textarea por div
+    textarea.style.display = 'none';
+    textarea.parentNode.insertBefore(div, textarea.nextSibling);
+  });
+  
+  // Imprime
   window.print();
+  
+  // Restaura estado original após impressão
+  setTimeout(() => {
+    document.querySelectorAll('.textarea-print-replacement').forEach(div => div.remove());
+    backups.forEach(backup => {
+      backup.elemento.style.display = backup.display;
+    });
+  }, 1000);
 }
 
 function adicionarTermo() {
@@ -199,4 +238,5 @@ function removerTermo() {
     container.removeChild(termos[termos.length - 1]);
   }
 }
+
 
